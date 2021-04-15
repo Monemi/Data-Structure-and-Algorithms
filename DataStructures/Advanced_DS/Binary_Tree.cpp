@@ -59,6 +59,17 @@ public:
 		}
 
 	}
+	void Post_Order(Node<T>* pilot) {
+
+		if (pilot == nullptr) { return; }
+		else {
+			Post_Order(pilot->left);
+			Post_Order(pilot->right);
+			std::cout << pilot->data << " ";
+
+		}
+
+	}
 
 };
 
@@ -72,5 +83,7 @@ int main() {
 	s.Add(s.Root->right, "shark");
 	s.Add(s.Root->right, "tilapilla");
 	s.Pre_Order(s.Root);
+	std::cout << std::endl;
+	s.Post_Order(s.Root);
 
 }
