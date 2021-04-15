@@ -29,18 +29,22 @@ public:
 	}
 	bool RemoveChildren(Node<T>* child) {
 		bool Chil_Removed = false;
-		for (int i = 0; i < children_count; i++) {
-			if (Children[i] == child) {
-				Children.erase(Children.begin() + (i));
-				delete child;
-				Chil_Removed = true;
-				children_count--;
-				is_leaf = is_Leaf();
-				Children.reserve(children_count);
-				break;
+		if (this->is_leaf == true) {
+			for (int i = 0; i < children_count; i++) {
+				if (Children[i] == child) {
+					Children.erase(Children.begin() + (i));
+					delete child;
+					Chil_Removed = true;
+					children_count--;
+					is_leaf = is_Leaf();
+					Children.reserve(children_count);
+					break;
+				}
 			}
 
-
+		}
+		else {
+			Chil_Removed = false;
 		}
 		return Chil_Removed;
 	}
@@ -119,7 +123,9 @@ public:
 	bool Remove(Node<T>* Removing) {
 		bool Removed = false;
 		if (Removing != nullptr) {
-			Removed = Removing->father->RemoveChildren(Removing);
+			if (Removing == this->Root) { delete this->Root; is_empty = true; Removed = true; }
+			else { Removed = Removing->father->RemoveChildren(Removing); }
+
 		}
 		else {
 			Removed = false;
@@ -154,7 +160,7 @@ int main() {
 	tree.Add(&tree2, tree.Root);
 	std::cout << "==================================" << std::endl;
 	tree.print_VLR(tree.Root);
-	bool result = tree.Remove(tree2.Root);
-	std::cout << result << "==================================" << std::endl;
+	bool result = tree.Remove(tree.Root);
+	std::cout << "==================================" << std::endl;
 	tree.print_VLR(tree.Root);
 }
