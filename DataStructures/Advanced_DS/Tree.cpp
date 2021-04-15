@@ -5,7 +5,7 @@ class Node {
 public:
 	int children_count = 0;
 	bool has_father = false;
-	bool is_father = false;
+	bool is_leaf = false;
 	T data;
 	Node<T>* father = nullptr;
 	std::vector<Node<T>*> Children;
@@ -19,7 +19,7 @@ public:
 			child->has_father = true;
 			child->father = this;
 			children_count++;
-			is_father = true;
+			is_leaf = false;
 			return true;
 		}
 		else {
@@ -31,9 +31,12 @@ public:
 		bool Chil_Removed = false;
 		for (int i = 0; i < children_count; i++) {
 			if (Children[i] == child) {
-				Children.erase(i);
+				Children.erase(Children.begin() + (i));
 				delete child;
 				Chil_Removed = true;
+				children_count--;
+				is_leaf = is_Leaf();
+				Children.reserve(children_count);
 				break;
 			}
 
@@ -45,6 +48,13 @@ public:
 
 	}
 private:
+	bool is_Leaf(void) {
+		bool leaf = false;
+		if (this->children_count == 0) { leaf = true; }
+		else { leaf = false; }
+		return leaf;
+	}
+
 };
 
 template <class T>
@@ -109,9 +119,7 @@ public:
 	bool Remove(Node<T>* Removing) {
 		bool Removed = false;
 		if (Removing != nullptr) {
-
-
-			Removed = true;
+			Removed = Removing->father->RemoveChildren(Removing);
 		}
 		else {
 			Removed = false;
@@ -145,5 +153,8 @@ int main() {
 
 	tree.Add(&tree2, tree.Root);
 	std::cout << "==================================" << std::endl;
+	tree.print_VLR(tree.Root);
+	bool result = tree.Remove(tree2.Root);
+	std::cout << result << "==================================" << std::endl;
 	tree.print_VLR(tree.Root);
 }
