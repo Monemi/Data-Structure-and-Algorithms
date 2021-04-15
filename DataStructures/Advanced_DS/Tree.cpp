@@ -27,7 +27,23 @@ public:
 		}
 
 	}
+	bool RemoveChildren(Node<T>* child) {
+		bool Chil_Removed = false;
+		for (int i = 0; i < children_count; i++) {
+			if (Children[i] == child) {
+				Children.erase(i);
+				delete child;
+				Chil_Removed = true;
+				break;
+			}
 
+
+		}
+		return Chil_Removed;
+	}
+	~Node() {
+
+	}
 private:
 };
 
@@ -93,6 +109,7 @@ public:
 	bool Remove(Node<T>* Removing) {
 		bool Removed = false;
 		if (Removing != nullptr) {
+
 
 			Removed = true;
 		}
