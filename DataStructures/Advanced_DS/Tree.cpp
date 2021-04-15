@@ -90,6 +90,17 @@ public:
 		else { std::cout << "Tree Havnt Root yet !!!" << std::endl; }
 
 	}
+	bool Remove(Node<T>* Removing) {
+		bool Removed = false;
+		if (Removing != nullptr) {
+
+			Removed = true;
+		}
+		else {
+			Removed = false;
+		}
+		return Removed;
+	}
 
 
 };
