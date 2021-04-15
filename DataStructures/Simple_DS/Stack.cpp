@@ -1,73 +1,78 @@
 #include <iostream>
-using namespace std;
+//stack implementation -- LIFO
+//USE Templates For them
+template <class T>
+class Stack {
+private:
+	int i = 0;
+	int n = 1000;
+	T* MemoryPointer;
+public:
+	Stack(int Size) {
+		this->n = Size;
+		 MemoryPointer = new T[n];
 
-// A utility function to swap two elements
-void swap(int* a, int* b)
-{
-    int t = *a;
-    *a = *b;
-    *b = t;
+	}
+	Stack(){	MemoryPointer = new T[n];
 }
 
-/* This function takes last element as pivot, places
-the pivot element at its correct position in sorted
-array, and places all smaller (smaller than pivot)
-to left of pivot and all greater elements to right
-of pivot */
-int partition(int arr[], int low, int high)
-{
-    int pivot = arr[high]; // pivot
-    int i = (low - 1); // Index of smaller element and indicates the right position of pivot found so far
+	void Push_back(T data){
+		if(i>=n-1){
+			MemoryPointer[i] = data;
+		}
+		else{
+			MemoryPointer[i] = data;
+			i++;
+		}
+		
+	}
+	void Pop_back(){
+		if(i>0){ i--; }
+	}
+	void Print() {
+		if (i < 1) {
+			std::cout << "We Havent any Data in Stack !" << std::endl;
+		}
+		for (int k = 0; k < i; k++) {
+			std::cout << MemoryPointer[k] << " ";
+		}
+		std::cout<<std::endl;
+	}
+	~Stack() {
+		delete[] MemoryPointer;
+	}
+};
 
-    for (int j = low; j <= high - 1; j++)
-    {
-        // If current element is smaller than the pivot
-        if (arr[j] < pivot)
-        {
-            i++; // increment index of smaller element
-            swap(&arr[i], &arr[j]);
-        }
-    }
-    swap(&arr[i + 1], &arr[high]);
-    return (i + 1);
+int main() {
+	Stack<int> ali(100);
+	ali.Push_back(100);
+	ali.Push_back(130);
+	ali.Push_back(80);
+	ali.Push_back(75);
+	ali.Pop_back();
+	ali.Pop_back();
+	ali.Pop_back();
+	ali.Pop_back();
+	ali.Pop_back();
+	ali.Pop_back();
+	ali.Push_back(100);
+	ali.Push_back(130);
+	ali.Push_back(80);
+	ali.Push_back(75);
+	ali.Print();
+	///
+	Stack<std::string> a1;
+	a1.Push_back("Hello");
+	a1.Push_back("My Name is :");
+	a1.Push_back(" Ali ");
+	a1.Pop_back();
+	a1.Pop_back();
+	a1.Print();
+	///
+	Stack<double> a2(5);
+	for (int i = 0; i < 50; i++) {
+		a2.Push_back(i);
+	}
+	a2.Print();
+
 }
-
-/* The main function that implements QuickSort
-arr[] --> Array to be sorted,
-low --> Starting index,
-high --> Ending index */
-void quickSort(int arr[], int low, int high)
-{
-    if (low < high)
-    {
-        /* pi is partitioning index, arr[p] is now
-        at right place */
-        int pi = partition(arr, low, high);
-
-        // Separately sort elements before
-        // partition and after partition
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
-    }
-}
-
-/* Function to print an array */
-void printArray(int arr[], int size)
-{
-    int i;
-    for (i = 0; i < size; i++)
-        cout << arr[i] << " ";
-    cout << endl;
-}
-
-// Driver Code
-int main()
-{
-    int arr[] = { 10, 7, 8, 9, 1, 5 ,-1,2,4,6,5,4,3 };
-    int n = sizeof(arr) / sizeof(arr[0]);
-    quickSort(arr, 0, n - 1);
-    cout << "Sorted array: \n";
-    printArray(arr, n);
-    return 0;
-}
-
