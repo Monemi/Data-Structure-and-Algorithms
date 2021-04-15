@@ -48,14 +48,29 @@ public:
 		else { Added = false; }
 		return Added;
 	}
+	void Pre_Order(Node<T>* pilot) {
+
+		if (pilot == nullptr) { return; }
+		else {
+			std::cout << pilot->data << " ";
+			Pre_Order(pilot->left);
+			Pre_Order(pilot->right);
+
+		}
+
+	}
+
 };
 
 int main() {
 	Binary_Tree<std::string> s;
-	s.Add(nullptr, "Ali");
-	s.Add(s.Root, "Ali2");
-	s.Add(s.Root, "Ali3");
-	s.Add(s.Root->left, "Ali");
-
+	s.Add(nullptr, "Heivanat");
+	s.Add(s.Root, "mammals");
+	s.Add(s.Root, "fishes");
+	s.Add(s.Root->left, "ensan");
+	s.Add(s.Root->left, "sag");
+	s.Add(s.Root->right, "shark");
+	s.Add(s.Root->right, "tilapilla");
+	s.Pre_Order(s.Root);
 
 }
