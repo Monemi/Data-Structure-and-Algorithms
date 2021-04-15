@@ -85,11 +85,11 @@ public:
 
 int main() {
 	Binary_Tree<std::string> s;
-	s.Add(nullptr, "Heivanat");
+	s.Add(nullptr, "Animals");
 	s.Add(s.Root, "mammals");
 	s.Add(s.Root, "fishes");
-	s.Add(s.Root->left, "ensan");
-	s.Add(s.Root->left, "sag");
+	s.Add(s.Root->left, "Human");
+	s.Add(s.Root->left, "Dog");
 	s.Add(s.Root->right, "shark");
 	s.Add(s.Root->right, "tilapilla");
 	s.Pre_Order(s.Root);
