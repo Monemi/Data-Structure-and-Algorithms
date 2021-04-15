@@ -70,7 +70,17 @@ public:
 		}
 
 	}
+	void In_Order(Node<T>* pilot) {
+		if (pilot == nullptr) { return; }
+		else {
+			In_Order(pilot->left);
+			std::cout << pilot->data << " ";
+			In_Order(pilot->right);
 
+
+		}
+
+	}
 };
 
 int main() {
@@ -85,5 +95,6 @@ int main() {
 	s.Pre_Order(s.Root);
 	std::cout << std::endl;
 	s.Post_Order(s.Root);
-
+	std::cout << std::endl;
+	s.In_Order(s.Root);
 }
