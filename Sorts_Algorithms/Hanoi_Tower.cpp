@@ -1,7 +1,10 @@
 #include <iostream> 
 #include <cmath> 
-#define ARRAYSIZE 100 
+#include <chrono>
+
+#define ARRAYSIZE 10000
 using namespace std;
+void Time_Calculator(void);
 //========================================================Hanoi iterative
 class TowersHanoi
 {
@@ -15,16 +18,16 @@ private:
 
     char except(char chFromPeg, char chToPeg); //returns peg other than provided as parameter 
 public:
+
     TowersHanoi(); //constructor 
+    TowersHanoi(int);
     //generates the tree 
     void generateTree(char chFromPeg, char chToPeg, int iDiskNo);
 };
-TowersHanoi::TowersHanoi()
+TowersHanoi::TowersHanoi(int disk_number)
 
 {
-    int disk_number;
-    cout << "\nENTER THE NUMBER OF DISKS >> ";
-    cin >> disk_number;
+    if (disk_number < 1) { disk_number = 3; }
 
     generateTree('A', 'B', disk_number);
     int cMoves = (int)pow(2, disk_number) - 1;
@@ -107,16 +110,42 @@ void Hanoi_Recursive(int x, char A, char C, char B)
         Hanoi_Recursive(x - 1, B, C, A);
     }
 }
+//===========================================================This Method Calculate Time of Hanoi_Tower in  Recursive Functions
+void Time_Calculator(void) {
+    std::cout << "This Function Help you Undrestand Time Complexity of  Recursive Hanoi Method\nPlease Dont use above 20 disks(it take 100 seconds for me :))" << std::endl;
+    std::cout << "Please Enter Disk Numbers For Methods :" << std::endl;
+    int disk = 0;
+    std::cin >> disk;
+    std::cout << "1-Recursive Hanoi_Tower Started ==>" << std::endl;
+    auto start1 = chrono::steady_clock::now();
+    //Do some staff1
+    Hanoi_Recursive(disk, 'A', 'C', 'B');
+    auto end1 = chrono::steady_clock::now();
+    std::cout << "2-Recursive Hanoi_Tower Ended <==" << std::endl;
 
+    cout << "Recursive Hanoi Elapsed Time(ms) ==>  "
+        << chrono::duration_cast<chrono::milliseconds>(end1 - start1).count()
+        << " ms" << endl;
+
+}
 void main(void)
 
 {
-    //---------------------------------------------------------------------------Using Iterative Hanoi_Tower 
-    cout << "A represents FROM PEG,\nB represents TO PEG,\nC represents AUXILLARY PEG\n";
-    TowersHanoi towersHanoi;
-    //---------------------------------------------------------------------------Using Recursive Hanoi_Tower 
+    int Disk_Count = 0;
+    std::cout << "Enter Disks Count" << std::endl;
+    std::cin >> Disk_Count;
+    if (Disk_Count < 1) { Disk_Count = 3; }
+    else {
+        //---------------------------------------------------------------------------Using Iterative Hanoi_Tower 
+        cout << "A represents FROM PEG,\nB represents TO PEG,\nC represents AUXILLARY PEG\n";
+        TowersHanoi towersHanoi(Disk_Count);
+        //---------------------------------------------------------------------------Using Recursive Hanoi_Tower 
+        std::cout << "============================================ Recursive " << std::endl;
+        Hanoi_Recursive(Disk_Count, 'A', 'C', 'B');
+        //---------------------------------------------------------------------------Calculate Time Elapsed in Different Methodes !
+    }
     std::cout << "============================================" << std::endl;
-    Hanoi_Recursive(5, 'A', 'C', 'B');
+    Time_Calculator();
 }
 
 
