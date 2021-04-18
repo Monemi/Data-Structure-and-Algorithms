@@ -5,13 +5,67 @@ public:
 	T data;
 	Node<T>* right = nullptr;
 	Node<T>* left = nullptr;
+	Node() {}
 	Node(T datas) {
 		data = datas;
 	}
 
 
 };
+template <class T>
+class Queue {
+public:
+	bool Is_Empty = true;
+	T data;
+	int n = 1000;
+	int Fulled = 0;
+	int  Head = 0;
+	int  Tail = 0;
+	Queue() {}
+	Queue(int Size) {
+		n = Size;
+	}
+	Node<T>* arrp = new Node<T>[n];
+	void Enqueue(Node<T>* add_item) {
+		if (add_item != nullptr) {
 
+
+			if (Is_Empty) {
+				arrp[Tail] = *add_item;
+
+			}
+			else {
+				Tail++;
+				arrp[Tail] = *add_item;
+
+			}
+			Fulled++;
+			this->Is_Empty = false;
+		}
+		else {
+			return;
+		}
+
+	}
+	Node<T>* dequeue(void) {
+		if (Is_Empty) { return nullptr; }
+		else {
+			Node<T>* tmp = &arrp[Head];
+			this->Head++;
+			isempty();
+			Fulled--;
+			return tmp;
+		}
+
+	}
+private:
+	void isempty(void) {
+		if (this->Fulled == 0) {
+			this->Is_Empty = true;
+		}
+	}
+
+};
 template <class T >
 class Binary_Tree {
 public:
@@ -81,6 +135,27 @@ public:
 		}
 
 	}
+	void Level_Order(void) {
+		Queue<T> queue;
+		if (this->Root != nullptr)
+			queue.Enqueue(this->Root);
+		else return;
+		while (!queue.Is_Empty) {
+			Node<T>* node = queue.dequeue();
+			std::cout << node->data << " ";
+
+			if (node->left != nullptr) {
+				queue.Enqueue(node->left);
+			}
+
+			if (node->right != nullptr) {
+				queue.Enqueue(node->right);
+			}
+		}
+
+
+	}
+
 };
 
 int main() {
@@ -97,4 +172,6 @@ int main() {
 	s.Post_Order(s.Root);
 	std::cout << std::endl;
 	s.In_Order(s.Root);
+	std::cout << std::endl;
+	s.Level_Order();
 }
