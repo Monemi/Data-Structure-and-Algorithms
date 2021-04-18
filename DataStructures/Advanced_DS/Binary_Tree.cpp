@@ -12,6 +12,7 @@ public:
 
 
 };
+//For Level Order Traversal We need A queue
 template <class T>
 class Queue {
 public:
@@ -147,12 +148,10 @@ public:
 			if (node->left != nullptr) {
 				queue.Enqueue(node->left);
 			}
-
 			if (node->right != nullptr) {
 				queue.Enqueue(node->right);
 			}
 		}
-
 
 	}
 
