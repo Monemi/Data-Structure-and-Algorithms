@@ -160,6 +160,7 @@ public:
 
 int main() {
 	Binary_Tree<std::string> s;
+	std::cout << "Binary Search Tree Traversal :\n\n";
 	s.Add(nullptr, "Animals");
 	s.Add(s.Root, "mammals");
 	s.Add(s.Root, "fishes");
@@ -167,11 +168,12 @@ int main() {
 	s.Add(s.Root->left, "Dog");
 	s.Add(s.Root->right, "shark");
 	s.Add(s.Root->right, "tilapilla");
+	std::cout << "Pre Order :\t ";
 	s.Pre_Order(s.Root);
-	std::cout << std::endl;
+	std::cout << std::endl << "Post Order :\t ";
 	s.Post_Order(s.Root);
-	std::cout << std::endl;
+	std::cout << std::endl << "IN Order :\t ";
 	s.In_Order(s.Root);
-	std::cout << std::endl;
+	std::cout << std::endl << "Level Order :\t ";
 	s.Level_Order();
 }
